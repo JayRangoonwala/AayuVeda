@@ -6,6 +6,7 @@ import About from './pages/About';
 import Home from './pages/Home';
 import HospitalMap from './pages/HospitalMap';
 import MedicineSearch from './pages/MedicineSearch';
+import MedicalStore from './pages/MedicalStore';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/about' element={<About/>}/>
         <Route path='/hospitalmap' element={<HospitalMap />} />
         <Route path='/medicine-search' element={<MedicineSearch />} />
+        <Route path='/medical-store' element={<MedicalStore />} />
       </Routes> 
       </>
   );

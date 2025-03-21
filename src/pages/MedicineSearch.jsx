@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { Search, Menu, X, AlertTriangle, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Navigate, Link as RouterLink } from "react-router-dom";
+import {
+  Search,
+  Menu,
+  X,
+  ArrowRight,
+  AlertTriangle,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import MedicalStore from "./MedicalStore";
 
 function MedicineSearch() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,16 +40,18 @@ function MedicineSearch() {
   const fetchMedicines = async (page) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:5000/api/medicines?page=${page}`);
-      if (!response.ok) throw new Error('Failed to fetch medicines');
+      const response = await fetch(
+        `http://localhost:5000/api/medicines?page=${page}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch medicines");
       const data = await response.json();
       setMedicines(data.medicines);
       setTotalPages(data.totalPages);
       setCurrentPage(data.currentPage);
       setError(null);
     } catch (err) {
-      setError('Failed to load medicines. Please try again later.');
-      console.error('Error fetching medicines:', err);
+      setError("Failed to load medicines. Please try again later.");
+      console.error("Error fetching medicines:", err);
     } finally {
       setIsLoading(false);
     }
@@ -49,16 +60,20 @@ function MedicineSearch() {
   const searchMedicines = async (query, page) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:5000/api/medicines/search?query=${encodeURIComponent(query)}&page=${page}`);
-      if (!response.ok) throw new Error('Failed to search medicines');
+      const response = await fetch(
+        `http://localhost:5000/api/medicines/search?query=${encodeURIComponent(
+          query
+        )}&page=${page}`
+      );
+      if (!response.ok) throw new Error("Failed to search medicines");
       const data = await response.json();
       setMedicines(data.medicines);
       setTotalPages(data.totalPages);
       setCurrentPage(data.currentPage);
       setError(null);
     } catch (err) {
-      setError('Failed to search medicines. Please try again later.');
-      console.error('Error searching medicines:', err);
+      setError("Failed to search medicines. Please try again later.");
+      console.error("Error searching medicines:", err);
     } finally {
       setIsLoading(false);
     }
@@ -76,59 +91,66 @@ function MedicineSearch() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
       <header className="sticky top-0 bg-white border-b-2 border-red-600 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-              <div className="flex flex-shrink-0 items-center">
-                <img src="/logo2.jpg" className="w-14 h-14" />
-                <h1 className="text-xl font-bold">
-                  Aayu<span className="text-red-700">Veda</span>
-                </h1>
-              </div>
-              <nav className="hidden md:block">
-                <ul className="flex space-x-5">
-                  <li>
-                    <RouterLink
-                      to="/"
-                      className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
-                    >
-                      Home
-                    </RouterLink>
-                  </li>
-                  <li>
-                    <RouterLink
-                      to="/about"
-                      className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
-                    >
-                      About
-                    </RouterLink>
-                    </li>
-                    <li>
-                    <RouterLink to="/medicine-search" className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
-                    >
-                      Medicine Search
-                    </RouterLink>
-                  </li>
-                    <li>
-                    <RouterLink to="/hospitalmap" className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
-                    >
-                      Hospital Map
-                    </RouterLink>
-                  </li>
-                </ul>
-              </nav>
-              <div>
-                <a
-                  href="#contact"
-                  className="inline-block bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded transition-colors"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <div className="flex flex-shrink-0 items-center">
+            <img src="/logo2.jpg" className="w-14 h-14" />
+            <h1 className="text-xl font-bold">
+              Aayu<span className="text-red-700">Veda</span>
+            </h1>
+          </div>
+          <nav className="hidden md:block">
+            <ul className="flex space-x-5">
+              <li>
+                <RouterLink
+                  to="/"
+                  className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
                 >
-                  Get Started
-                </a>
-              </div>
-            </div>
-          </header>
+                  Home
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink
+                  to="/about"
+                  className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
+                >
+                  About
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink
+                  to="/medicine-search"
+                  className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
+                >
+                  Medicine Search
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink
+                  to="/hospitalmap"
+                  className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
+                >
+                  Hospital Map
+                </RouterLink>
+              </li>
+            </ul>
+          </nav>
+          <div>
+            <a
+              href="#contact"
+              className="inline-block bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded transition-colors"
+            >
+              Get Started
+            </a>
+          </div>
+        </div>
+      </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <Search
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={20}
+          />
           <input
             type="text"
             placeholder="Search for medicines by name or brand..."
@@ -158,18 +180,23 @@ function MedicineSearch() {
                     <li
                       key={medicine["Medicine Name"]}
                       className={`p-3 rounded-lg cursor-pointer transition-all transform hover:scale-102 ${
-                        selectedMedicine?.["Medicine Name"] === medicine["Medicine Name"]
-                          ? 'bg-blue-100 text-blue-800 shadow-md'
-                          : 'hover:bg-gray-50'
+                        selectedMedicine?.["Medicine Name"] ===
+                        medicine["Medicine Name"]
+                          ? "bg-blue-100 text-blue-800 shadow-md"
+                          : "hover:bg-gray-50"
                       }`}
                       onClick={() => setSelectedMedicine(medicine)}
                     >
-                      <div className="font-medium">{medicine["Medicine Name"]}</div>
-                      <div className="text-sm text-gray-500">{medicine["Brand Name"]}</div>
+                      <div className="font-medium">
+                        {medicine["Medicine Name"]}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {medicine["Brand Name"]}
+                      </div>
                     </li>
                   ))}
                 </ul>
-                
+
                 <div className="mt-4 flex items-center justify-center space-x-2">
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
@@ -198,9 +225,15 @@ function MedicineSearch() {
               <div className="animate-fadeIn">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900">{selectedMedicine["Medicine Name"]}</h2>
-                    <p className="text-gray-600 mt-1">Brand: {selectedMedicine["Brand Name"]}</p>
-                    <p className="text-gray-600">{selectedMedicine["Manufacturer"]}</p>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      {selectedMedicine["Medicine Name"]}
+                    </h2>
+                    <p className="text-gray-600 mt-1">
+                      Brand: {selectedMedicine["Brand Name"]}
+                    </p>
+                    <p className="text-gray-600">
+                      {selectedMedicine["Manufacturer"]}
+                    </p>
                   </div>
                   {selectedMedicine["Image URL"] && (
                     <img
@@ -213,90 +246,143 @@ function MedicineSearch() {
 
                 <div className="mt-6 space-y-6">
                   <div className="bg-white/50 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-gray-900">Composition</h3>
-                    <p className="mt-1 text-gray-600">{selectedMedicine["Composition"]}</p>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Composition
+                    </h3>
+                    <p className="mt-1 text-gray-600">
+                      {selectedMedicine["Composition"]}
+                    </p>
                   </div>
 
                   <div className="bg-white/50 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-gray-900">Uses</h3>
-                    <p className="mt-1 text-gray-600">{selectedMedicine["Uses"]}</p>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Uses
+                    </h3>
+                    <p className="mt-1 text-gray-600">
+                      {selectedMedicine["Uses"]}
+                    </p>
                   </div>
 
                   <div className="bg-white/50 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-gray-900">Side Effects</h3>
-                    <p className="mt-1 text-gray-600">{selectedMedicine["Side_effects"]}</p>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Side Effects
+                    </h3>
+                    <p className="mt-1 text-gray-600">
+                      {selectedMedicine["Side_effects"]}
+                    </p>
                   </div>
 
                   {selectedMedicine.Predicted_Effects && (
                     <div className="bg-yellow-50 p-4 rounded-lg">
                       <div className="flex items-center gap-2 mb-3">
                         <AlertTriangle className="text-yellow-600" size={20} />
-                        <h3 className="text-lg font-semibold text-gray-900">AI-Predicted Potential Effects</h3>
+                        <h3 className="text-lg font-semibold text-gray-900">
+                          AI-Predicted Potential Effects
+                        </h3>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
-                        {Object.entries(selectedMedicine.Predicted_Effects).map(([effect, predicted]) => (
-                          predicted && (
-                            <div key={effect} className="flex items-center gap-2 text-gray-700">
-                              <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
-                              {effect}
-                            </div>
-                          )
-                        ))}
+                        {Object.entries(selectedMedicine.Predicted_Effects).map(
+                          ([effect, predicted]) =>
+                            predicted && (
+                              <div
+                                key={effect}
+                                className="flex items-center gap-2 text-gray-700"
+                              >
+                                <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
+                                {effect}
+                              </div>
+                            )
+                        )}
                       </div>
                     </div>
                   )}
 
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Substitute Medicines</h3>
-                    <p className="text-sm text-gray-500 mb-3">(Same composition, different brands)</p>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      Substitute Medicines
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-3">
+                      (Same composition, different brands)
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {selectedMedicine.Substitutes.map((substitute) => (
-                        <div 
-                          key={substitute["Medicine Name"]} 
+                        <div
+                          key={substitute["Medicine Name"]}
                           className="bg-blue-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                         >
-                          <h4 className="font-medium text-blue-900">{substitute["Medicine Name"]}</h4>
-                          <p className="text-sm text-blue-700">{substitute["Manufacturer"]}</p>
-                          <p className="text-sm font-medium text-blue-800 mt-1">{substitute["Price"]}</p>
+                          <h4 className="font-medium text-blue-900">
+                            {substitute["Medicine Name"]}
+                          </h4>
+                          <p className="text-sm text-blue-700">
+                            {substitute["Manufacturer"]}
+                          </p>
+                          <p className="text-sm font-medium text-blue-800 mt-1">
+                            {substitute["Price"]}
+                          </p>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Alternative Medicines</h3>
-                    <p className="text-sm text-gray-500 mb-3">(Different composition, similar uses)</p>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      Alternative Medicines
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-3">
+                      (Different composition, similar uses)
+                    </p>
                     <div className="grid grid-cols-1 gap-4">
                       {selectedMedicine.Alternatives.map((alternative) => (
-                        <div 
-                          key={alternative["Medicine Name"]} 
+                        <div
+                          key={alternative["Medicine Name"]}
                           className="bg-green-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                         >
-                          <h4 className="font-medium text-green-900">{alternative["Medicine Name"]}</h4>
-                          <p className="text-sm text-green-700">{alternative["Composition"]}</p>
-                          <p className="text-sm text-green-700">{alternative["Uses"]}</p>
-                          <p className="text-sm font-medium text-green-800 mt-1">{alternative["Price"]}</p>
+                          <h4 className="font-medium text-green-900">
+                            {alternative["Medicine Name"]}
+                          </h4>
+                          <p className="text-sm text-green-700">
+                            {alternative["Composition"]}
+                          </p>
+                          <p className="text-sm text-green-700">
+                            {alternative["Uses"]}
+                          </p>
+                          <p className="text-sm font-medium text-green-800 mt-1">
+                            {alternative["Price"]}
+                          </p>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   <div className="bg-white/50 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-gray-900">Reviews</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Reviews
+                    </h3>
                     <div className="mt-4 grid grid-cols-3 gap-4">
                       <div className="text-center p-3 bg-green-50 rounded-lg">
-                        <div className="text-2xl font-bold text-green-600">{selectedMedicine["Excellent Review %"]}%</div>
+                        <div className="text-2xl font-bold text-green-600">
+                          {selectedMedicine["Excellent Review %"]}%
+                        </div>
                         <div className="text-sm text-gray-500">Excellent</div>
                       </div>
                       <div className="text-center p-3 bg-yellow-50 rounded-lg">
-                        <div className="text-2xl font-bold text-yellow-600">{selectedMedicine["Average Review %"]}%</div>
+                        <div className="text-2xl font-bold text-yellow-600">
+                          {selectedMedicine["Average Review %"]}%
+                        </div>
                         <div className="text-sm text-gray-500">Average</div>
                       </div>
                       <div className="text-center p-3 bg-red-50 rounded-lg">
-                        <div className="text-2xl font-bold text-red-600">{selectedMedicine["Poor Review %"]}%</div>
+                        <div className="text-2xl font-bold text-red-600">
+                          {selectedMedicine["Poor Review %"]}%
+                        </div>
                         <div className="text-sm text-gray-500">Poor</div>
                       </div>
                     </div>
+                  </div>
+                  <div className="flex items-center justify-center"> 
+                    <RouterLink to='/medical-store' className="text-purple-800 flex text-xl">
+                      Near By Medical Shop<ArrowRight />
+                    </RouterLink>
                   </div>
                 </div>
               </div>
@@ -311,4 +397,4 @@ function MedicineSearch() {
     </div>
   );
 }
-export default MedicineSearch
+export default MedicineSearch;
