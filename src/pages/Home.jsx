@@ -44,6 +44,18 @@ function Header() {
               >
                 About
               </RouterLink>
+              </li>
+              <li>
+              <RouterLink to="/medicine-search" className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
+              >
+                Medicine Search
+              </RouterLink>
+            </li>
+              <li>
+              <RouterLink to="/hospitalmap" className="text-black hover:bg-red-600 hover:text-white transition-colors p-2 rounded-full px-3"
+              >
+                Hospital Map
+              </RouterLink>
             </li>
           </ul>
         </nav>
@@ -325,7 +337,7 @@ function Footer() {
         </div>
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} NexusTech. All rights reserved.
+            &copy; {new Date().getFullYear()} AayuVeda All rights reserved.
           </p>
         </div>
       </div>
